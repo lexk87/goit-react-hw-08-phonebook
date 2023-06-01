@@ -1,16 +1,30 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsRefreshing, refreshUser } from 'redux';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { GlobalStyle } from 'styles/GlobalStyle';
+
 export const App = () => {
-    return (
-        <div
-            style={{
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: 40,
-                color: '#010101',
-            }}
-        >
-            React homework template
-        </div>
+    const dispatch = useDispatch();
+    const isRefreshing = useSelector(selectIsRefreshing);
+
+    useEffect(() => {
+        dispatch(refreshUser());
+    }, [dispatch]);
+
+    return !isRefreshing && (
+        <>
+            <GlobalStyle />
+            <Routes>
+                <Route path="/" element={ }>
+                    <Route index element={ } />
+                    <Route path="register" element={ } />
+                    <Route path="login" element={ } />
+                    <Route path="contacts" element={ } />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Route>
+            </Routes>
+        </>
     );
 };
