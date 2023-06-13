@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-// import appBg from '../img/app-bg.jpg';
+import appBg from '../img/app-bg.jpg';
+import '@fontsource-variable/montserrat';
 
 export const GlobalStyle = createGlobalStyle`
     *,
@@ -10,8 +11,14 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         margin: 0;
-        background-image: url("../img/app-bg.jpg");
+        min-width: 100vw;
+        min-height: 100vh;
+        background-image: url(${appBg});
         background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Montserrat";
+        font-size: 16px;
     }
 
     h1,

@@ -1,9 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectIsRefreshing, refreshUser } from 'redux';
+import { selectIsRefreshing, refreshUser } from '../redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { GlobalStyle } from 'styles/GlobalStyle';
+import { Header } from 'shared-layout/Header';
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -13,18 +14,20 @@ export const App = () => {
         dispatch(refreshUser());
     }, [dispatch]);
 
-    return !isRefreshing && (
-        <>
-            <GlobalStyle />
-            <Routes>
-                <Route path="/" element={ }>
-                    <Route index element={ } />
+    return (
+        !isRefreshing && (
+            <>
+                <GlobalStyle />
+                <Routes>
+                    <Route path="/" element={<Header />}>
+                        {/* <Route index element={ } />
                     <Route path="register" element={ } />
                     <Route path="login" element={ } />
                     <Route path="contacts" element={ } />
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Route>
-            </Routes>
-        </>
+                    <Route path="*" element={<Navigate to="/" />} /> */}
+                    </Route>
+                </Routes>
+            </>
+        )
     );
 };
