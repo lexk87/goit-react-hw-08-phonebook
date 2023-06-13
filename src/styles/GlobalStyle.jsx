@@ -11,14 +11,13 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         margin: 0;
-        min-width: 100vw;
-        min-height: 100vh;
         background-image: url(${appBg});
+        background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         font-family: "Montserrat";
-        font-size: 16px;
+        font-size: 18px;
     }
 
     h1,

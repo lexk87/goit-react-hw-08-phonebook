@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const HeaderLink = styled(NavLink)`
+    padding: 7px 15px;
     border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 21px;
     font-weight: 600;
     color: #fff;
     background-color: none;
@@ -17,18 +16,8 @@ export const HeaderLink = styled(NavLink)`
         backdrop-filter: blur(10px) saturate(180%);
     }
 
-    @media screen and (min-width: 480px) {
-    }
-    @media screen and (min-width: 768px) {
-    }
-    @media screen and (min-width: 992px) {
-        padding: 7px 15px;
-        font-size: 16px;
-    }
     @media screen and (min-width: 1280px) {
         padding: 10px 20px;
         font-size: 21px;
-    }
-    @media screen and (min-width: 1536px) {
     }
 `;

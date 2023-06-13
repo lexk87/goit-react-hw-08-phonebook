@@ -16,7 +16,7 @@ export const Header = () => {
 
     return (
         <>
-            <Box as="header" h="100px">
+            <Box as="header" h="100px" mb="50px">
                 <Container
                     px="20px"
                     h="100%"
