@@ -6,3 +6,4 @@ export * from './MobileMenu/MobileMenu';
 export * from './MobileUserInfo/MobileUserInfo';
 export * from './MobileNav/MobileNav';
 export * from './MobileNav/MobileAuthNav';
+export * from './RegisterForm/RegisterForm';

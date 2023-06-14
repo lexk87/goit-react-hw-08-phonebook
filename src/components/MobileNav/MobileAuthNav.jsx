@@ -15,7 +15,7 @@ export const MobileAuthNav = ({ closeDrawer }) => {
                 REGISTER
             </MobileNavLink>
             <MobileNavLink to="login" onClick={closeDrawer}>
-                LOGIN
+                LOG IN
             </MobileNavLink>
         </Box>
     );

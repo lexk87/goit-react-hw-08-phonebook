@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { GlobalStyle } from 'styles/GlobalStyle';
 import { Header } from 'shared-layout/Header';
-import { Home } from '../pages';
+import { Home, Register, Login, Contacts } from '../pages';
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -22,10 +22,10 @@ export const App = () => {
                 <Routes>
                     <Route path="/" element={<Header />}>
                         <Route index element={<Home />} />
-                        {/* <Route path="register" element={ } />
-                        <Route path="login" element={ } />
-                        <Route path="contacts" element={ } />
-                        <Route path="*" element={<Navigate to="/" />} /> */}
+                        <Route path="register" element={<Register />} />
+                        <Route path="login" element={<Login />} />
+                        <Route path="contacts" element={<Contacts />} />
+                        <Route path="*" element={<Navigate to="/" />} />
                     </Route>
                 </Routes>
             </>

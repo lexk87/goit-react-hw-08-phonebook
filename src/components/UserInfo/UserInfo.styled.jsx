@@ -12,7 +12,7 @@ export const LogOutBtn = styled.button`
     &.active,
     &:hover,
     &:focus {
-        color: red;
+        color: tomato;
     }
 
     @media screen and (min-width: 480px) {

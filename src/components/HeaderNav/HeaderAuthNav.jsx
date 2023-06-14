@@ -9,7 +9,7 @@ export const HeaderAuthNav = () => {
             gap={{ lg: '15px', xl: '20px' }}
         >
             <HeaderLink to="register">REGISTER</HeaderLink>
-            <HeaderLink to="login">LOGIN</HeaderLink>
+            <HeaderLink to="login">LOG IN</HeaderLink>
         </Box>
     );
 };

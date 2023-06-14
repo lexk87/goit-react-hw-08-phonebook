@@ -8,6 +8,6 @@ export const MobileNavLink = styled(NavLink)`
     text-align: center;
     &.active,
     &:focus {
-        color: red;
+        color: tomato;
     }
 `;
