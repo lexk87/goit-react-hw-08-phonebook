@@ -32,7 +32,7 @@ export const Register = () => {
                         Register your Phonebook account
                     </Heading>
                     <Text color="#fff" mb="20px" fontSize="14px">
-                        Enter your name, phone number and password
+                        Enter your name, email and password
                     </Text>
                     <RegisterForm />
                 </Box>

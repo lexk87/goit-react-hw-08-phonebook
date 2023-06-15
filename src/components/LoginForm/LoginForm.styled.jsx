@@ -1,17 +1,8 @@
 import styled from 'styled-components';
-import {
-    AiOutlineUser,
-    AiOutlineEye,
-    AiOutlineEyeInvisible,
-} from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { HiOutlineMail } from 'react-icons/hi';
 import { BsShieldLock } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-
-export const UserIcon = styled(AiOutlineUser)`
-    width: 20px;
-    height: 20px;
-`;
 
 export const EmailIcon = styled(HiOutlineMail)`
     width: 20px;
@@ -52,7 +43,7 @@ export const Input = styled.input`
     transition: all 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
     border-left: 1px solid lightgray;
 
-    &.reg-password-input {
+    &.login-password-input {
         width: calc(100% - 80px);
         border-radius: 0;
         border-right: 1px solid lightgray;
@@ -91,7 +82,7 @@ export const SubmitButton = styled.button`
     }
 `;
 
-export const LoginLink = styled(Link)`
+export const RegisterLink = styled(Link)`
     text-decoration: underline;
     transition: all 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
