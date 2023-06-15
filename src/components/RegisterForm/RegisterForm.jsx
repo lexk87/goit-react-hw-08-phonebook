@@ -107,7 +107,7 @@ export const RegisterForm = () => {
                     {...register('email', {
                         required: true,
                         pattern:
-                            /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/i,
+                            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                     })}
                 />
             </Box>
@@ -152,7 +152,7 @@ export const RegisterForm = () => {
                         required: true,
                         minLength: 8,
                         maxLength: 16,
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)$/i,
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/i,
                     })}
                 />
                 <Button type="button" onClick={toggleShow}>

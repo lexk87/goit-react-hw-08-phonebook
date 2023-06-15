@@ -15,6 +15,8 @@ export const HeaderNav = () => {
         >
             <HeaderLink to="/">HOME</HeaderLink>
             {isLoggedIn && <HeaderLink to="contacts">CONTACTS</HeaderLink>}
+
+            <HeaderLink to="contacts">CONTACTS</HeaderLink>
         </Box>
     );
 };

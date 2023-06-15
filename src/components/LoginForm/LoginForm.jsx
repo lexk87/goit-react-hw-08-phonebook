@@ -51,13 +51,13 @@ export const LoginForm = () => {
                     {...register('email', {
                         required: true,
                         pattern:
-                            /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/i,
+                            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                     })}
                 />
             </Box>
             {!errors.email && (
                 <Text fontSize="10px" mb="10px">
-                    Must contain a valid email address
+                    Enter a valid email address
                 </Text>
             )}
             {errors.email && errors.email.type === 'required' && (
@@ -96,7 +96,7 @@ export const LoginForm = () => {
                         required: true,
                         minLength: 8,
                         maxLength: 16,
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)$/i,
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/i,
                     })}
                 />
                 <Button type="button" onClick={toggleShow}>
@@ -105,7 +105,7 @@ export const LoginForm = () => {
             </Box>
             {!errors.password && (
                 <Text fontSize="10px" mb="30px">
-                    Must contain a valid password
+                    Enter a valid password
                 </Text>
             )}
             {errors.password && errors.password.type === 'required' && (

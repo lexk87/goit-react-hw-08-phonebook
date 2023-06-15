@@ -6,8 +6,7 @@ export const MobileNavLink = styled(NavLink)`
     font-size: 21px;
     color: #000;
     text-align: center;
-    &.active,
-    &:focus {
-        color: tomato;
+    &.active {
+        color: darkgray;
     }
 `;

@@ -78,7 +78,7 @@ export const SubmitButton = styled.button`
 
     &:hover,
     &:focus {
-        color: tomato;
+        background-color: lightgray;
     }
 `;
 
@@ -88,6 +88,6 @@ export const RegisterLink = styled(Link)`
 
     &:hover,
     &:focus {
-        color: tomato;
+        color: lightgray;
     }
 `;

@@ -32,6 +32,7 @@ export const MobileMenu = () => {
                     <DrawerCloseButton color="#000" />
                     <DrawerBody padding="40px">
                         {isLoggedIn && <MobileUserInfo closeDrawer={onClose} />}
+                        <MobileUserInfo closeDrawer={onClose} />
                         <MobileNav closeDrawer={onClose} />
                         {!isLoggedIn && <MobileAuthNav closeDrawer={onClose} />}
                     </DrawerBody>
