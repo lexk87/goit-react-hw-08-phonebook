@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { AiOutlineUserAdd, AiOutlineSearch } from 'react-icons/ai';
-
 import { AiOutlineUser, AiOutlinePhone } from 'react-icons/ai';
 
 export const AddContactIcon = styled(AiOutlineUserAdd)`
