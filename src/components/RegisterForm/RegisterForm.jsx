@@ -14,18 +14,32 @@ import {
 } from './RegisterForm.styled';
 import { Box, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../redux';
 
 export const RegisterForm = () => {
     const [show, setShow] = useState(false);
-    const toggleShow = () => setShow(!show);
-
     const {
         register,
+        getValues,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+    const dispatch = useDispatch();
+
+    const toggleShow = () => setShow(!show);
+
+    const onSubmit = () => {
+        dispatch(
+            registerUser({
+                name: getValues('name'),
+                email: getValues('email'),
+                password: getValues('password'),
+            })
+        );
+        reset();
+    };
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -46,6 +60,7 @@ export const RegisterForm = () => {
                     <UserIcon />
                 </Box>
                 <Input
+                    name="name"
                     id="name"
                     type="text"
                     placeholder="Enter name"
@@ -101,6 +116,7 @@ export const RegisterForm = () => {
                     <EmailIcon />
                 </Box>
                 <Input
+                    name="email"
                     id="email"
                     type="email"
                     placeholder="Enter email"
@@ -144,6 +160,7 @@ export const RegisterForm = () => {
                     <PasswordIcon />
                 </Box>
                 <Input
+                    name="password"
                     className="reg-password-input"
                     id="password"
                     type={show ? 'text' : 'password'}

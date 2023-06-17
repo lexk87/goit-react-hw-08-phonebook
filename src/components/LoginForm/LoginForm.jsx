@@ -13,18 +13,31 @@ import {
     SubmitButton,
     RegisterLink,
 } from './LoginForm.styled';
+import { useDispatch } from 'react-redux';
+import { logInUser } from '../../redux';
 
 export const LoginForm = () => {
     const [show, setShow] = useState(false);
-    const toggleShow = () => setShow(!show);
-
     const {
         register,
+        getValues,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+    const dispatch = useDispatch();
+
+    const toggleShow = () => setShow(!show);
+
+    const onSubmit = () => {
+        dispatch(
+            logInUser({
+                email: getValues('email'),
+                password: getValues('password'),
+            })
+        );
+        reset();
+    };
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>

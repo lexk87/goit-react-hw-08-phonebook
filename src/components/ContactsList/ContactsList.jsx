@@ -20,9 +20,18 @@ import {
     ModalButton,
 } from './ContactsList.styled';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContacts, selectContacts } from '../../redux';
 
 export const ContactsList = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const dispatch = useDispatch();
+    const contacts = useSelector(selectContacts);
+
+    useEffect(() => {
+        dispatch(fetchContacts());
+    }, [dispatch]);
 
     const {
         register,
@@ -44,7 +53,10 @@ export const ContactsList = () => {
 
     return (
         <>
+            {/* Contacts list */}
             <List display="flex" flexWrap="wrap" gap="20px">
+                {contacts.map()}
+
                 <ListItem
                     p="20px"
                     backgroundColor="rgba(255, 255, 255, 0.2)"

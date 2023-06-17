@@ -1,7 +1,14 @@
 import { Box, Text } from '@chakra-ui/react';
 import { LogOutBtn } from './UserInfo.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser, logOutUser } from '../../redux';
 
 export const UserInfo = () => {
+    const user = useSelector(selectUser);
+    const userName = user.name;
+    const firstLetter = user.name.slice(0, 1);
+    const dispatch = useDispatch();
+
     return (
         <Box
             display={{ base: 'none', lg: 'flex' }}
@@ -21,16 +28,18 @@ export const UserInfo = () => {
                 h={{ lg: '38px', xl: '50px' }}
                 borderRadius="50%"
             >
-                O
+                {firstLetter}
             </Text>
             <Text
                 color="#fff"
                 fontWeight="600"
                 fontSize={{ lg: '16px', xl: '21px' }}
             >
-                Olexandr Katyshev
+                {userName}
             </Text>
-            <LogOutBtn>LOGOUT</LogOutBtn>
+            <LogOutBtn type="button" onClick={() => dispatch(logOutUser())}>
+                LOGOUT
+            </LogOutBtn>
         </Box>
     );
 };

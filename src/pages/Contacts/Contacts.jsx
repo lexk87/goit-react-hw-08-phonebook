@@ -1,7 +1,7 @@
 import { Box, Container, Text } from '@chakra-ui/react';
 import { ContactsMenu, ContactsList } from 'components';
 
-export const Contacts = () => {
+const Contacts = () => {
     return (
         <Box as="main">
             <Container
@@ -24,3 +24,5 @@ export const Contacts = () => {
         </Box>
     );
 };
+
+export default Contacts;

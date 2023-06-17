@@ -1,7 +1,7 @@
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 import { RegisterForm } from 'components';
 
-export const Register = () => {
+const Register = () => {
     return (
         <Box as="main">
             <Container
@@ -40,3 +40,5 @@ export const Register = () => {
         </Box>
     );
 };
+
+export default Register;

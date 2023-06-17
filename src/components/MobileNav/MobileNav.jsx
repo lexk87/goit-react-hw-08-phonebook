@@ -16,10 +16,6 @@ export const MobileNav = ({ closeDrawer }) => {
                     CONTACTS
                 </MobileNavLink>
             )}
-
-            <MobileNavLink to="contacts" onClick={closeDrawer}>
-                CONTACTS
-            </MobileNavLink>
         </Box>
     );
 };

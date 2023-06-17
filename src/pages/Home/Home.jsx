@@ -1,6 +1,6 @@
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 
-export const Home = () => {
+const Home = () => {
     return (
         <Box as="main">
             <Container
@@ -50,3 +50,5 @@ export const Home = () => {
         </Box>
     );
 };
+
+export default Home;
