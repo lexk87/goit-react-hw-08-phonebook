@@ -34,9 +34,6 @@ const Login = () => {
                     <Text color="#fff" mb="20px" fontSize="14px">
                         Enter your email and password
                     </Text>
-                    <Text mb="20px" fontSize="14px" color="tomato">
-                        There is no user with such email or password!
-                    </Text>
                     <LoginForm />
                 </Box>
             </Container>

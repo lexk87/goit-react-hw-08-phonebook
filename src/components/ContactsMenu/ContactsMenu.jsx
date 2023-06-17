@@ -21,17 +21,55 @@ import {
     ModalButton,
 } from './ContactsMenu.styled';
 import { useForm } from 'react-hook-form';
+import {
+    addContact,
+    selectContacts,
+    selectFilter,
+    setFilter,
+} from '../../redux';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const ContactsMenu = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const dispatch = useDispatch();
+    const contacts = useSelector(selectContacts);
+    const filterValue = useSelector(selectFilter);
 
     const {
         register,
+        getValues,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+
+    const onFilterChange = e => {
+        dispatch(setFilter(e.currentTarget.value.trim()));
+    };
+
+    const onSubmit = () => {
+        const isContactIncluded = contacts.some(
+            contact =>
+                contact.name.toLowerCase() === getValues('name').toLowerCase()
+        );
+
+        isContactIncluded
+            ? toast.warn(`${getValues('name')} is already in contacts`, {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: 'colored',
+              })
+            : dispatch(addContact(getValues()));
+
+        onClose();
+        reset();
+    };
 
     return (
         <>
@@ -45,20 +83,26 @@ export const ContactsMenu = () => {
                     <AddContactIcon />
                     <Text>Add contact</Text>
                 </AddContactButton>
-                <Box display="flex" alignItems="center" color="#000">
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        w="40px"
-                        h="40px"
-                        backgroundColor="#fff"
-                        borderLeftRadius="4px"
-                    >
-                        <SearchContactIcon />
+                {contacts.length > 0 && (
+                    <Box display="flex" alignItems="center" color="#000">
+                        <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            w="40px"
+                            h="40px"
+                            backgroundColor="#fff"
+                            borderLeftRadius="4px"
+                        >
+                            <SearchContactIcon />
+                        </Box>
+                        <Input
+                            type="text"
+                            onChange={onFilterChange}
+                            value={filterValue}
+                        />
                     </Box>
-                    <Input type="text" />
-                </Box>
+                )}
             </Box>
 
             {/* Add contact modal */}
@@ -145,7 +189,7 @@ export const ContactsMenu = () => {
                                     </Text>
                                 )}
 
-                            {/* Name field */}
+                            {/* Number field */}
                             <Label htmlFor="number">Number</Label>
                             <Box display="flex" alignItems="center">
                                 <Box
@@ -172,21 +216,31 @@ export const ContactsMenu = () => {
                                     })}
                                 />
                             </Box>
-                            {!errors.name && (
+                            {!errors.number && (
                                 <Text fontSize="10px" mb="30px">
                                     Must contain a valid phone number
                                 </Text>
                             )}
-                            {errors.name && errors.name.type === 'required' && (
-                                <Text fontSize="10px" color="tomato" mb="30px">
-                                    Number is a required field!
-                                </Text>
-                            )}
-                            {errors.name && errors.name.type === 'pattern' && (
-                                <Text fontSize="10px" color="tomato" mb="30px">
-                                    Wrong number format!
-                                </Text>
-                            )}
+                            {errors.number &&
+                                errors.number.type === 'required' && (
+                                    <Text
+                                        fontSize="10px"
+                                        color="tomato"
+                                        mb="30px"
+                                    >
+                                        Number is a required field!
+                                    </Text>
+                                )}
+                            {errors.number &&
+                                errors.number.type === 'pattern' && (
+                                    <Text
+                                        fontSize="10px"
+                                        color="tomato"
+                                        mb="30px"
+                                    >
+                                        Wrong number format!
+                                    </Text>
+                                )}
 
                             {/* Buttons */}
                             <Box

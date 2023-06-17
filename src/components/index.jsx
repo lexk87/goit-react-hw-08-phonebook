@@ -10,3 +10,4 @@ export * from './RegisterForm/RegisterForm';
 export * from './LoginForm/LoginForm';
 export * from './ContactsList/ContactsList';
 export * from './ContactsMenu/ContactsMenu';
+export * from './Loader/Loader';

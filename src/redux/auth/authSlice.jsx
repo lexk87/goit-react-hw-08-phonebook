@@ -1,10 +1,11 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
     registerUser,
     logInUser,
     logOutUser,
     refreshUser,
 } from './authOperations';
+import { toast } from 'react-toastify';
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -37,17 +38,41 @@ export const authSlice = createSlice({
                 state.isRefreshing = false;
             })
 
-            .addCase(registerUser.pending, (state, action) => {})
-            .addCase(logInUser.pending, (state, action) => {})
-            .addCase(logOutUser.pending, (state, action) => {})
             .addCase(refreshUser.pending, state => {
                 state.isRefreshing = true;
             })
 
-            .addCase(registerUser.rejected, (state, action) => {})
-            .addCase(logInUser.rejected, (state, action) => {})
-            .addCase(logOutUser.rejected, (state, action) => {})
-            .addCase(refreshUser.rejected, (state, action) => {
+            .addCase(registerUser.rejected, () => {
+                toast.error(
+                    'Oops, something went wrong! But we are pretty sure that a user with such an email already exists.',
+                    {
+                        position: 'top-right',
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'colored',
+                    }
+                );
+            })
+            .addCase(logInUser.rejected, () => {
+                toast.error(
+                    'Oops, something went wrong! But we are pretty sure that you entered the wrong email or password.',
+                    {
+                        position: 'top-right',
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'colored',
+                    }
+                );
+            })
+            .addCase(refreshUser.rejected, state => {
                 state.isRefreshing = false;
             }),
 });

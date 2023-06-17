@@ -21,25 +21,70 @@ import {
 } from './ContactsList.styled';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchContacts, selectContacts } from '../../redux';
+import {
+    selectContacts,
+    deleteContact,
+    selectFilteredContacts,
+    editContact,
+} from '../../redux';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 export const ContactsList = () => {
+    const [editedId, setEditedId] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useDispatch();
     const contacts = useSelector(selectContacts);
+    const filteredContacts = useSelector(selectFilteredContacts);
 
-    useEffect(() => {
-        dispatch(fetchContacts());
-    }, [dispatch]);
+    const removeContact = id => {
+        dispatch(deleteContact(id));
+    };
 
     const {
         register,
+        setValue,
+        getValues,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+
+    const onEditClick = (id, name, number) => {
+        setValue('name', name);
+        setValue('number', number);
+        setEditedId(id);
+        onOpen();
+    };
+
+    const onSubmit = () => {
+        const isContactIncluded = contacts.some(
+            contact =>
+                contact.name.toLowerCase() === getValues('name').toLowerCase()
+        );
+
+        isContactIncluded
+            ? toast.warn(`${getValues('name')} is already in contacts`, {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: 'colored',
+              })
+            : dispatch(
+                  editContact({
+                      id: editedId,
+                      name: getValues('name'),
+                      number: getValues('number'),
+                  })
+              );
+
+        onClose();
+        reset();
+    };
 
     const generateDarkColorHex = () => {
         let color = '#';
@@ -55,62 +100,71 @@ export const ContactsList = () => {
         <>
             {/* Contacts list */}
             <List display="flex" flexWrap="wrap" gap="20px">
-                {contacts.map()}
-
-                <ListItem
-                    p="20px"
-                    backgroundColor="rgba(255, 255, 255, 0.2)"
-                    backdropFilter="blur(10px) saturate(180%)"
-                    borderRadius="4px"
-                    w={{
-                        base: '100%',
-                        sm: 'calc((100% - 20px) / 2)',
-                        md: 'calc((100% - 40px) / 3)',
-                        lg: 'calc((100% - 60px) / 4)',
-                        xl: 'calc((100% - 80px) / 5)',
-                    }}
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                >
-                    <Text
+                {filteredContacts.map(({ id, name, number }) => (
+                    <ListItem
+                        key={id}
+                        p="20px"
+                        backgroundColor="rgba(255, 255, 255, 0.2)"
+                        backdropFilter="blur(10px) saturate(180%)"
+                        borderRadius="4px"
+                        w={{
+                            base: '100%',
+                            sm: 'calc((100% - 20px) / 2)',
+                            md: 'calc((100% - 40px) / 3)',
+                            lg: 'calc((100% - 60px) / 4)',
+                            xl: 'calc((100% - 80px) / 5)',
+                        }}
                         display="flex"
-                        justifyContent="center"
+                        flexDirection="column"
                         alignItems="center"
-                        mb="10px"
-                        backgroundColor={generateDarkColorHex()}
-                        color="#fff"
-                        w="40px"
-                        h="40px"
-                        borderRadius="50%"
-                        fontWeight="600"
                     >
-                        O
-                    </Text>
-                    <Text
-                        color="#fff"
-                        fontWeight="600"
-                        mb="5px"
-                        textAlign="center"
-                        h="54px"
-                    >
-                        Olexandr Katyshev
-                    </Text>
-                    <Text
-                        color="#fff"
-                        fontSize="15px"
-                        mb="15px"
-                        textAlign="center"
-                    >
-                        +38 (063) 181-44-74
-                    </Text>
-                    <Box display="flex" justifyContent="center" gap="20px">
-                        <Button type="button" onClick={onOpen}>
-                            EDIT
-                        </Button>
-                        <Button type="button">DELETE</Button>
-                    </Box>
-                </ListItem>
+                        <Text
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            mb="10px"
+                            backgroundColor={generateDarkColorHex()}
+                            color="#fff"
+                            w="40px"
+                            h="40px"
+                            borderRadius="50%"
+                            fontWeight="600"
+                        >
+                            {name.slice(0, 1)}
+                        </Text>
+                        <Text
+                            color="#fff"
+                            fontWeight="600"
+                            mb="5px"
+                            textAlign="center"
+                            h="54px"
+                        >
+                            {name}
+                        </Text>
+                        <Text
+                            color="#fff"
+                            fontSize="15px"
+                            mb="15px"
+                            textAlign="center"
+                        >
+                            {number}
+                        </Text>
+                        <Box display="flex" justifyContent="center" gap="20px">
+                            <Button
+                                type="button"
+                                onClick={() => onEditClick(id, name, number)}
+                            >
+                                EDIT
+                            </Button>
+                            <Button
+                                type="button"
+                                onClick={() => removeContact(id)}
+                            >
+                                DELETE
+                            </Button>
+                        </Box>
+                    </ListItem>
+                ))}
             </List>
 
             {/* Add contact modal */}
@@ -197,7 +251,7 @@ export const ContactsList = () => {
                                     </Text>
                                 )}
 
-                            {/* Name field */}
+                            {/* Number field */}
                             <Label htmlFor="number">Number</Label>
                             <Box display="flex" alignItems="center">
                                 <Box
@@ -224,21 +278,31 @@ export const ContactsList = () => {
                                     })}
                                 />
                             </Box>
-                            {!errors.name && (
+                            {!errors.number && (
                                 <Text fontSize="10px" mb="30px">
                                     Must contain a valid phone number
                                 </Text>
                             )}
-                            {errors.name && errors.name.type === 'required' && (
-                                <Text fontSize="10px" color="tomato" mb="30px">
-                                    Number is a required field!
-                                </Text>
-                            )}
-                            {errors.name && errors.name.type === 'pattern' && (
-                                <Text fontSize="10px" color="tomato" mb="30px">
-                                    Wrong number format!
-                                </Text>
-                            )}
+                            {errors.number &&
+                                errors.number.type === 'required' && (
+                                    <Text
+                                        fontSize="10px"
+                                        color="tomato"
+                                        mb="30px"
+                                    >
+                                        Number is a required field!
+                                    </Text>
+                                )}
+                            {errors.number &&
+                                errors.number.type === 'pattern' && (
+                                    <Text
+                                        fontSize="10px"
+                                        color="tomato"
+                                        mb="30px"
+                                    >
+                                        Wrong number format!
+                                    </Text>
+                                )}
 
                             {/* Buttons */}
                             <Box

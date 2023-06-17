@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 import { useEffect, lazy } from 'react';
 import { GlobalStyle } from 'styles/GlobalStyle';
 import { Header } from 'shared-layout/Header';
-import { ThreeDots } from 'react-loader-spinner';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const Home = lazy(() => import('../pages/Home/Home'));
 const Contacts = lazy(() => import('../pages/Contacts/Contacts'));
@@ -26,6 +27,7 @@ export const App = () => {
         !isRefreshing && (
             <>
                 <GlobalStyle />
+
                 <Routes>
                     <Route path="/" element={<Header />}>
                         <Route index element={<Home />} />
@@ -33,7 +35,7 @@ export const App = () => {
                             path="/register"
                             element={
                                 <RestrictedRoute
-                                    redirectTo="/"
+                                    redirectTo="/contacts"
                                     component={<Register />}
                                 />
                             }
@@ -42,7 +44,7 @@ export const App = () => {
                             path="/login"
                             element={
                                 <RestrictedRoute
-                                    redirectTo="/"
+                                    redirectTo="/contacts"
                                     component={<Login />}
                                 />
                             }
@@ -51,7 +53,7 @@ export const App = () => {
                             path="/contacts"
                             element={
                                 <PrivateRoute
-                                    redirectTo="/login"
+                                    redirectTo="/"
                                     component={<Contacts />}
                                 />
                             }
@@ -59,6 +61,19 @@ export const App = () => {
                         <Route path="*" element={<Navigate to="/" />} />
                     </Route>
                 </Routes>
+
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
             </>
         )
     );
