@@ -12,13 +12,18 @@ import { MobileUserInfo, MobileNav, MobileAuthNav } from 'components';
 import { selectIsLoggedIn } from '../../redux';
 import { useSelector } from 'react-redux';
 
+import { useMediaQuery } from '@chakra-ui/react';
+
 export const MobileMenu = () => {
+    const [isLargerThanLg] = useMediaQuery('(min-width: 992px)');
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
     return (
         <Box display={{ base: 'block', lg: 'none' }}>
             <MobileMenuBtn
+                type="button"
                 area-label="Open menu"
                 title="Open menu"
                 onClick={onOpen}
@@ -26,17 +31,23 @@ export const MobileMenu = () => {
                 <MobileMenuBtnIcon />
             </MobileMenuBtn>
 
-            <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton color="#000" />
-                    <DrawerBody padding="40px">
-                        {isLoggedIn && <MobileUserInfo closeDrawer={onClose} />}
-                        <MobileNav closeDrawer={onClose} />
-                        {!isLoggedIn && <MobileAuthNav closeDrawer={onClose} />}
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
+            {!isLargerThanLg && (
+                <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton color="#000" />
+                        <DrawerBody padding="40px">
+                            {isLoggedIn && (
+                                <MobileUserInfo closeDrawer={onClose} />
+                            )}
+                            <MobileNav closeDrawer={onClose} />
+                            {!isLoggedIn && (
+                                <MobileAuthNav closeDrawer={onClose} />
+                            )}
+                        </DrawerBody>
+                    </DrawerContent>
+                </Drawer>
+            )}
         </Box>
     );
 };
