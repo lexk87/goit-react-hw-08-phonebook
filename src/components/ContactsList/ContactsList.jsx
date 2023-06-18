@@ -60,8 +60,11 @@ export const ContactsList = () => {
     const onSubmit = () => {
         const isContactIncluded = contacts.some(
             contact =>
-                contact.name.toLowerCase() === getValues('name').toLowerCase()
+                contact.name.toLowerCase() ===
+                    getValues('name').toLowerCase() && contact.id !== editedId
         );
+
+        console.log('isContactIncluded:', isContactIncluded);
 
         isContactIncluded
             ? toast.warn(`${getValues('name')} is already in contacts`, {
