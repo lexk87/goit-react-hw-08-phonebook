@@ -64,8 +64,6 @@ export const ContactsList = () => {
                     getValues('name').toLowerCase() && contact.id !== editedId
         );
 
-        console.log('isContactIncluded:', isContactIncluded);
-
         isContactIncluded
             ? toast.warn(`${getValues('name')} is already in contacts`, {
                   position: 'top-right',
