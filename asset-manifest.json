@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/goit-react-hw-08-phonebook/static/css/main.05224a28.css",
-    "main.js": "/goit-react-hw-08-phonebook/static/js/main.d52bc75e.js",
+    "main.js": "/goit-react-hw-08-phonebook/static/js/main.d748fbf2.js",
     "static/js/544.01ebb393.chunk.js": "/goit-react-hw-08-phonebook/static/js/544.01ebb393.chunk.js",
     "static/js/969.c01c80cb.chunk.js": "/goit-react-hw-08-phonebook/static/js/969.c01c80cb.chunk.js",
     "static/js/643.8e589049.chunk.js": "/goit-react-hw-08-phonebook/static/js/643.8e589049.chunk.js",
@@ -14,7 +14,7 @@
     "static/media/montserrat-vietnamese-wght-normal.woff2": "/goit-react-hw-08-phonebook/static/media/montserrat-vietnamese-wght-normal.05f01253eba3626ef33d.woff2",
     "index.html": "/goit-react-hw-08-phonebook/index.html",
     "main.05224a28.css.map": "/goit-react-hw-08-phonebook/static/css/main.05224a28.css.map",
-    "main.d52bc75e.js.map": "/goit-react-hw-08-phonebook/static/js/main.d52bc75e.js.map",
+    "main.d748fbf2.js.map": "/goit-react-hw-08-phonebook/static/js/main.d748fbf2.js.map",
     "544.01ebb393.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/544.01ebb393.chunk.js.map",
     "969.c01c80cb.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/969.c01c80cb.chunk.js.map",
     "643.8e589049.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/643.8e589049.chunk.js.map",
@@ -22,6 +22,6 @@
   },
   "entrypoints": [
     "static/css/main.05224a28.css",
-    "static/js/main.d52bc75e.js"
+    "static/js/main.d748fbf2.js"
   ]
 }
